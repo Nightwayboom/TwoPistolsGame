@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { Game, GameLine, Question } = require('../../db/models')
 const path = require('path')
+const verifyAccessToken = require('../../middleware/verifyAccessToken')
 
 router.get('/games', async (req, res) => {
 	try {
@@ -14,7 +15,7 @@ router.get('/games', async (req, res) => {
 	}
 })
 
-router.get('/gamesLines', async (req, res) => {
+router.get('/gamesLines', verifyAccessToken, async (req, res) => {
 	try {
 		const gameLines = await GameLine.findAll({
 			where: { gameId: 1 },
@@ -27,9 +28,10 @@ router.get('/gamesLines', async (req, res) => {
 	}
 })
 
-router.post('/gameStart', async (req, res) => {
+router.post('/gameStart', verifyAccessToken, async (req, res) => {
 	try {
-		const game = await Game.create({ userId: 1, status: false, point: 0 })
+		const { user } = res.locals
+		const game = await Game.create({ userId: user.id, status: false, point: 0 })
 		if (game) {
 			const questions = await Question.findAll()
 			questions.forEach(question =>
@@ -44,6 +46,9 @@ router.post('/gameStart', async (req, res) => {
 					where: { gameId: game.id },
 					include: Question,
 				})
+				res.locals.game = game;
+				res.locals.user = user;
+				console.log(user);
 				res.status(200).json({ message: 'success', game, gameLines })
 			}, 2000)
 		}
@@ -73,5 +78,14 @@ router.patch('/gameLines/:gameLineId', async (req, res) => {
 		res.status(500).json({ error: message })
 	}
 })
+
+// router.patch('/gameScore/:gameId',async(req,res)=>{
+// 	try {
+// 		const { gameLineId } = req.params
+// 		const game = await Game.update({score})
+// 	} catch (error) {
+		
+// 	}
+// })
 
 module.exports = router

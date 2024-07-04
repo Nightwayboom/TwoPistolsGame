@@ -40,6 +40,7 @@ const GameSlice = createSlice({
         state.game = action.payload.game;
         state.gameLines = action.payload.gameLines;
         state.loading = false;
+        console.log(state.game);
       })
       .addCase(createNewGameLinesThunk.pending, (state) => {
         state.loading = true;
