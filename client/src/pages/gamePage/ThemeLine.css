@@ -3,9 +3,11 @@
     gap: 3em;
     height: 100px;
     margin: 10px;
+    justify-content: space-between;
 }
 
 .theme {
+    width: 300px;
     margin-right: 150px;
 }
 

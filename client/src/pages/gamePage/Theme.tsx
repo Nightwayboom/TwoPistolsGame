@@ -21,7 +21,7 @@ const Theme = ({ theme, questions }: ThemeProps): JSX.Element => {
   };
 
   return (
-    <div className="ThemeLine">
+    <div className='ThemeLine'>
       <div className="theme">{theme.title}</div>
       {questions
         .filter((question) => question.categoryId === theme.id)
