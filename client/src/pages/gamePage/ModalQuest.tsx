@@ -7,14 +7,13 @@ type ModalQuestProps = {
 };
 
 const ModalQuest = ({ question }: ModalQuestProps): JSX.Element => {
-    console.log(question);
     
   return (
     <div className='ModalQuest'>
-      <h1 style={{color: 'black'}}>{question.name}</h1>
-        <img src={question.img} alt="img" style={{height: '120px'}} />
+      <h1>{question.name}</h1>
+        <img src={question.img} alt="img" />
       <input type="text" placeholder='Ответ'/>
-      <button>Ответить</button>
+      <button type='button'>Ответить</button>
     </div>
   );
 };
