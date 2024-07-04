@@ -1,0 +1,15 @@
+.ThemeLine {
+    display: flex;
+    gap: 3em;
+    height: 100px;
+    margin: 10px;
+}
+
+.theme {
+    margin-right: 150px;
+}
+
+.ModalQuest {
+    display: flex;
+    flex-direction: column;
+}
