@@ -1,30 +1,45 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/store/store';
 import './auth.css';
+import { authorizationThunk } from '../../entities/users/authSlice';
 
 function AuthorizationPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    dispatch(authorizationThunk({ email, password }))
+      .then(() => {
+        window.location.href = '/';
+      })
+      .catch(console.log);
+  };
+
   return (
-    <form>
-      <input
-        type="login"
-        name="login"
-        placeholder="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">login</button>
+    <form onSubmit={onHandleSubmit}>
+      <label htmlFor="email">
+        Email:
+        <input
+          type="login"
+          name="email"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </label>
+      <label htmlFor="password">
+        Пароль:
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </label>
+      <button type="submit">Заходи, че</button>
     </form>
   );
 }

@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import questionsSlice from '../../entities/questions/questionSlice';
 import CategorySlice from '../../entities/categories/categorySlices';
 import GameSlice from '../../entities/game/gameSlices';
+import authSlice from '../../entities/users/authSlice';
 
 const store = configureStore({
   reducer: {
     questions: questionsSlice.reducer,
     categories: CategorySlice.reducer,
     game: GameSlice.reducer,
+    user: authSlice.reducer,
   },
 });
 
