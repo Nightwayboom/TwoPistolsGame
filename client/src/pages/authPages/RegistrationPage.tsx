@@ -1,28 +1,38 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { useAppDispatch } from '../../app/store/store';
 import Button, { ThemeButton } from '../../shared/ui/Button/Button';
 import './auth.css';
+import { registrationThunk } from '../../entities/users/authSlice';
 
 function RegistrationPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [name, setName] = useState('');
+  const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
 
+  const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    if (password.trim() === checkPassword.trim()) {
+      dispatch(registrationThunk({ login, email, password }))
+        .then(() => {
+          window.location.href = '/';
+        })
+        .catch(console.log);
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={onHandleSubmit}>
       <label htmlFor="name">
         Name:
         <input
           type="text"
           name="name"
           required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
         />
       </label>
       <br />
