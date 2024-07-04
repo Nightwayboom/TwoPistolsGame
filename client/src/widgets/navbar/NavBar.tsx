@@ -19,9 +19,16 @@ function NavBar(): JSX.Element {
       <div className="logo">Игруля</div>
       <ul className="nav-links">
         {user ? (
-          <button type="button" onClick={onHandleLogout}>
-            Logout
-          </button>
+          <>
+            <li>
+              <NavLink to="/">
+                <a>Главная</a>
+              </NavLink>
+            </li>
+            <button type="button" onClick={onHandleLogout}>
+              Logout
+            </button>
+          </>
         ) : (
           <>
             <li>

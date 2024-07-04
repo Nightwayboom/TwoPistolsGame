@@ -1,10 +1,11 @@
 import type { AxiosResponse } from 'axios';
 import type { User, UserForLoga, UserForRega } from '../types/userTypes';
-import axiosInstance from '../../../services/axiosInstance'
-
+import axiosInstance from '../../../services/axiosInstance';
+import type { Game } from '../../game/types/gameTypes';
 
 type ResForAuth = {
   message: 'success';
+  game?: Game;
   user: User;
   accessToken: string;
 };
@@ -12,7 +13,10 @@ type ResForAuth = {
 class AuthApi {
   static registration = async (body: UserForRega): Promise<ResForAuth> => {
     try {
-      const result: AxiosResponse<ResForAuth> = await axiosInstance.post('/auth/registration', body);
+      const result: AxiosResponse<ResForAuth> = await axiosInstance.post(
+        '/auth/registration',
+        body,
+      );
       return result.data;
     } catch (error) {
       throw new Error('Не регает че то');
@@ -21,7 +25,10 @@ class AuthApi {
 
   static authorization = async (body: UserForLoga): Promise<ResForAuth> => {
     try {
-      const result: AxiosResponse<ResForAuth> = await axiosInstance.post('/auth/authorization', body);
+      const result: AxiosResponse<ResForAuth> = await axiosInstance.post(
+        '/auth/authorization',
+        body,
+      );
       return result.data;
     } catch (error) {
       throw new Error('Не логает че то');
