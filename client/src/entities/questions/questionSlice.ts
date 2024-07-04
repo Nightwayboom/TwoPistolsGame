@@ -1,13 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Question } from './types/questionType';
+import type { Question } from './types/questionType';
 import QuestionApi from './api/questionApi';
 
 type StateQuestion = {
   questions: Question[];
+  error: string | undefined;
+  loading: boolean;
 };
 
 const initialState: StateQuestion = {
   questions: [],
+  error: undefined,
+  loading: true,
 };
 
 export const getQuestionThunk = createAsyncThunk('load/questions', () =>
@@ -19,9 +23,18 @@ const questionsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getQuestionThunk.fulfilled, (state, action) => {
-      state.questions = action.payload;
-    });
+    builder
+      .addCase(getQuestionThunk.fulfilled, (state, action) => {
+        state.questions = action.payload;
+        state.loading = false;
+      })
+      .addCase(getQuestionThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getQuestionThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+      });
   },
 });
 

@@ -18,6 +18,7 @@ router.get('/gamesLines', async (req, res) => {
 	try {
 		const gameLines = await GameLine.findAll({
 			where: { gameId: 1 },
+			include: Question,
 			order: [['id', 'ASC']],
 		})
 		res.status(200).json({ message: 'success', gameLines })
@@ -51,7 +52,7 @@ router.post('/gameStart', async (req, res) => {
 	}
 })
 
-router.patch('/gameLine/:gameLineId', async (req, res) => {
+router.patch('/gameLines/:gameLineId', async (req, res) => {
 	try {
 		const { gameLineId } = req.params
 		const updateGameLine = await GameLine.update(
