@@ -9,7 +9,7 @@ export const injectStore = (_store: StoreType): void => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://localhost:3000/api',
   withCredentials: true,
 });
 

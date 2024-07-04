@@ -2,7 +2,7 @@ import React from 'react';
 import './NavBar.css';
 import { NavLink } from 'react-router-dom';
 
-const NavBar = (): JSX.Element => {
+function NavBar(): JSX.Element {
   return (
     <nav className="cyberpunk-navbar">
       <div className="logo">Игруля</div>
@@ -20,5 +20,5 @@ const NavBar = (): JSX.Element => {
       </ul>
     </nav>
   );
-};
+}
 export default NavBar;

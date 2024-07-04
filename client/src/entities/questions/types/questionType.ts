@@ -1,8 +1,8 @@
 export type Question = {
   id: number;
-  question: string;
+  name: string;
   answer: string;
-  themeId: number;
+  categoryId: number;
   img: string;
 };
 
