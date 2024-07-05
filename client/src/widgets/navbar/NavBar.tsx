@@ -23,12 +23,14 @@ function NavBar(): JSX.Element {
             <a>Главная</a>
           </NavLink>
         </li>
-        {user ? (
+        {user.user ? (
           <>
-            {user.user && game.game && (
+            {user.user  && (
               <>
                 <li>Привет {user.user.login}</li>
+                {game.game && 
                 <li>Твой счет: {game.game.point}</li>
+                }
               </>
             )}
             <button type="button" onClick={onHandleLogout}>
