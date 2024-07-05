@@ -1,13 +1,13 @@
 import type { AxiosResponse } from 'axios';
-import type { Game, GameLineWithQuestion } from '../types/gameTypes';
+import type { Game, GameLineWithQuestion, RefreshGame } from '../types/gameTypes';
 import axiosInstance from '../../../services/axiosInstance';
 
 class GameApi {
-  static getGameLines = async (): Promise<GameLineWithQuestion[]> => {
+  static getCurrentGameAndLines = async (): Promise<{ message: 'success'; findGame: RefreshGame }> => {
     try {
-      const result: AxiosResponse<{ message: 'success'; gameLines: GameLineWithQuestion[] }> =
-        await axiosInstance.get('/games/gamesLines');
-      return result.data.gameLines;
+      const result: AxiosResponse<{ message: 'success'; findGame: RefreshGame }> =
+        await axiosInstance.get('/games/findGameCurrent');
+      return result.data;
     } catch (error) {
       throw new Error('Не получил все активные вопросы');
     }

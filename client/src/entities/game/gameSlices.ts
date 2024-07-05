@@ -3,7 +3,7 @@ import type { Game, GameLine } from './types/gameTypes';
 import GameApi from './api/gameApi';
 
 type StateCurrentGame = {
-  game?: Game | undefined;
+  game: Game | undefined;
   gameLines: GameLine[];
   error: string | undefined;
   loading: boolean;
@@ -16,7 +16,7 @@ const initialState: StateCurrentGame = {
   loading: true,
 };
 
-export const loadGameLinesThunk = createAsyncThunk('load/games', () => GameApi.getGameLines());
+export const loadCurrentGameAndGameLineThunk = createAsyncThunk('load/games', () => GameApi.getCurrentGameAndLines());
 
 export const createNewGameLinesThunk = createAsyncThunk('create/games', () =>
   GameApi.createNewGame(),
@@ -32,15 +32,16 @@ const GameSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loadGameLinesThunk.fulfilled, (state, action) => {
-        state.gameLines = action.payload;
+      .addCase(loadCurrentGameAndGameLineThunk.fulfilled, (state, action) => {
+        state.gameLines = action.payload.findGame.GameLines
+        state.game = action.payload.findGame;
+        delete state.game.GameLines
         state.loading = false;
       })
       .addCase(createNewGameLinesThunk.fulfilled, (state, action) => {
         state.game = action.payload.game;
         state.gameLines = action.payload.gameLines;
         state.loading = false;
-        console.log(state.game);
       })
       .addCase(createNewGameLinesThunk.pending, (state) => {
         state.loading = true;

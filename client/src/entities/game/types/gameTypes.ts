@@ -5,6 +5,7 @@ export type Game = {
   userId: number;
   status: boolean;
   point: number;
+  GameLines?: GameLineWithQuestion[]
 };
 
 export type GameLine = {
@@ -17,3 +18,7 @@ export type GameLine = {
 export type GameLineWithQuestion = {
   Question: Question;
 } & GameLine;
+
+export type RefreshGame = {
+  GameLines: GameLineWithQuestion[];
+} & Game;

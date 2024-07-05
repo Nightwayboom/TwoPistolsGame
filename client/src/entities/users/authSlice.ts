@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { User, UserForLoga, UserForRega } from './types/userTypes';
 import AuthApi from './api/userApi';
-import type { Game } from '../game/types/gameTypes';
 
 type StateAuth = {
   user: User | undefined;
-  game?: Game;
   accessToken: string | undefined;
   error: string | undefined;
   loading: boolean;
@@ -13,7 +11,6 @@ type StateAuth = {
 
 const initialState: StateAuth = {
   user: undefined,
-  game: undefined,
   accessToken: undefined,
   error: undefined,
   loading: true,
@@ -52,7 +49,6 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.game = action.payload.game;
         state.accessToken = action.payload.accessToken;
       })
       .addCase(refreshUser.pending, (state) => {
