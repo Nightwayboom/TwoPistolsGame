@@ -19,13 +19,21 @@ function Game(): JSX.Element {
       })
       .catch(console.log);
   };
-  console.log(user);
+
+  const onNavigate = (): void => {
+    navigate('/game')
+  }
   
   return (
-    <div className="game">
+    <div className="gameElement">
       {user ? (<>
       {user && game ? (
-        <h2>Ты уже играешь</h2>
+        <>
+        <h2 className='h2style'>Ты уже играешь</h2>
+        <button type="button" onClick={onNavigate} className='glow-on-hover' style={{left: '130px'}}>
+        ВЕРНУТЬСЯ В ИГРУ
+      </button>
+      </>
       ) : (
         <button type="button" onClick={onHandleNewGame} className='glow-on-hover'>
           ПОГНАЛИ В ИГРУ

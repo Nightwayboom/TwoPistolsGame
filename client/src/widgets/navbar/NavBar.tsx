@@ -35,7 +35,7 @@ function NavBar(): JSX.Element {
                 }
               </>
             )}
-            <button type="button" onClick={onHandleLogout}>
+            <button type="button" onClick={onHandleLogout} className='logoutButton'>
               Logout
             </button>
           </>

@@ -4,14 +4,14 @@
     border: none;
     outline: none;
     color: #fff;
-    background: rgba(17, 17, 17, 0.8); /* Полупрозрачный фон */
+    background: rgba(17, 17, 17, 0.8); 
     cursor: pointer;
     position: relative;
     z-index: 0;
     border-radius: 10px;
-    font-family: 'Orbitron', sans-serif; /* Добавление футуристического шрифта */
-    font-size: 18px; /* Увеличение размера шрифта */
-    text-transform: uppercase; /* Преобразование текста в верхний регистр */
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 18px; 
+    text-transform: uppercase; 
     text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1, 0 0 15px #00ffe1, 0 0 20px #00ffe1, 0 0 25px #00ffe1, 0 0 30px #00ffe1, 0 0 35px #00ffe1; /* Неоновое свечение */
 }
 
@@ -27,7 +27,7 @@
     width: calc(100% + 4px);
     height: calc(100% + 4px);
     animation: glowing 20s linear infinite;
-    opacity: 1; /* Always visible */
+    opacity: 1; 
     transition: opacity .3s ease-in-out;
     border-radius: 10px;
 }
@@ -46,7 +46,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(17, 17, 17, 0.8); /* Полупрозрачный фон */
+    background: rgba(17, 17, 17, 0.8); 
     left: 0;
     top: 0;
     border-radius: 10px;
