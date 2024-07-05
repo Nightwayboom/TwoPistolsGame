@@ -3,12 +3,12 @@ const { Game, GameLine, Question } = require('../../db/models')
 const path = require('path')
 const verifyAccessToken = require('../../middleware/verifyAccessToken')
 
-router.get('/findGameCurrent',verifyAccessToken, async (req, res) => {
+router.get('/findGameCurrent', verifyAccessToken, async (req, res) => {
 	try {
-		const {game} = res.locals
+		const { game } = res.locals
 		const findGame = await Game.findOne({
 			where: { id: game.id },
-			include: {model: GameLine, include: Question},
+			include: { model: GameLine, include: Question },
 		})
 
 		res.status(200).json({ message: 'success', findGame })
@@ -17,18 +17,18 @@ router.get('/findGameCurrent',verifyAccessToken, async (req, res) => {
 	}
 })
 
-router.get('/gamesLines', verifyAccessToken, async (req, res) => {
-	try {
-		const gameLines = await GameLine.findAll({
-			where: { gameId: 1 },
-			include: Question,
-			order: [['id', 'ASC']],
-		})
-		res.status(200).json({ message: 'success', gameLines })
-	} catch ({ message }) {
-		res.status(500).json({ error: message })
-	}
-})
+// router.get('/gamesLines', verifyAccessToken, async (req, res) => {
+// 	try {
+// 		const gameLines = await GameLine.findAll({
+// 			where: { gameId: 1 },
+// 			include: Question,
+// 			order: [['id', 'ASC']],
+// 		})
+// 		res.status(200).json({ message: 'success', gameLines })
+// 	} catch ({ message }) {
+// 		res.status(500).json({ error: message })
+// 	}
+// })
 
 router.post('/gameStart', verifyAccessToken, async (req, res) => {
 	try {
@@ -59,22 +59,27 @@ router.post('/gameStart', verifyAccessToken, async (req, res) => {
 	}
 })
 
-router.patch('/gameLines/:gameLineId', async (req, res) => {
+router.patch('/gameLines/:gameLineId', verifyAccessToken, async (req, res) => {
 	try {
-		const { gameLineId } = req.params
+		const { game } = res.locals //  Текущая игра 
+		const { gameLineId } = req.params // текущий GameLine
 		const updateGameLine = await GameLine.update(
 			{ status: true },
-			{
-				// игра будет доставаться из рес локалс
-				where: { id: gameLineId, gameId: 1 },
-			}
+			{ where: { id: gameLineId, gameId: game.id } }
 		)
 		if (updateGameLine[0] > 0) {
-			const gameLine = await GameLine.findOne({
-				where: { id: gameLineId },
-				include: Question,
-			})
-			res.status(200).json({ message: 'success', gameLine })
+			const updateGame = Game.update(
+				{ score: game.score + 100 },
+				{ where: { id: game.id } }
+			)
+			if (updateGame[0] > 0) {
+				const gameLine = await GameLine.findOne({
+					where: { id: gameLineId },
+					include: Question,
+				})
+				const game = await Game.findOne({ where: { id: game.id } })
+				res.status(200).json({ message: 'success', gameLine, game })
+			}
 		}
 	} catch ({ message }) {
 		res.status(500).json({ error: message })

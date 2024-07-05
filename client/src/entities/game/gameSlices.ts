@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { Game, GameLine } from './types/gameTypes';
+import type { Game, GameLineWithQuestion } from './types/gameTypes';
 import GameApi from './api/gameApi';
 
 type StateCurrentGame = {
   game: Game | undefined;
-  gameLines: GameLine[];
+  gameLines: GameLineWithQuestion[];
   error: string | undefined;
   loading: boolean;
 };
@@ -16,14 +16,16 @@ const initialState: StateCurrentGame = {
   loading: true,
 };
 
-export const loadCurrentGameAndGameLineThunk = createAsyncThunk('load/games', () => GameApi.getCurrentGameAndLines());
+export const loadCurrentGameAndGameLineThunk = createAsyncThunk('load/games', () =>
+  GameApi.getCurrentGameAndLines(),
+);
 
 export const createNewGameLinesThunk = createAsyncThunk('create/games', () =>
   GameApi.createNewGame(),
 );
 
 export const updateAnswerQuestionThunk = createAsyncThunk('update/gameQuest', (id: number) =>
-  GameApi.answeredQuestion(id),
+  GameApi.answeredQuestionRight(id),
 );
 
 const GameSlice = createSlice({
@@ -33,9 +35,9 @@ const GameSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loadCurrentGameAndGameLineThunk.fulfilled, (state, action) => {
-        state.gameLines = action.payload.findGame.GameLines
+        state.gameLines = action.payload.findGame.GameLines;
         state.game = action.payload.findGame;
-        delete state.game.GameLines
+        delete state.game.GameLines;
         state.loading = false;
       })
       .addCase(createNewGameLinesThunk.fulfilled, (state, action) => {
@@ -52,8 +54,9 @@ const GameSlice = createSlice({
       })
       .addCase(updateAnswerQuestionThunk.fulfilled, (state, action) => {
         state.gameLines = state.gameLines.map((gameLine) =>
-          gameLine.id === action.payload.id ? action.payload : gameLine,
+          gameLine.id === action.payload.gameLine.id ? action.payload.gameLine : gameLine,
         );
+        state.game = action.payload.game
       });
   },
 });
