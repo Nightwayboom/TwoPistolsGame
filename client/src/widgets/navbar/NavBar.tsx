@@ -32,7 +32,7 @@ function NavBar(): JSX.Element {
           </NavLink>
         </li>
         <li>
-          <button type="button" onClick={openModal}>
+          <button type="button" onClick={openModal} className='RatingButton'>
             Рейтинг
           </button>
         </li>

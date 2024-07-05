@@ -25,7 +25,7 @@ function Theme({ elCategory, gameLines }: ThemeProps): JSX.Element {
       <div className="theme">{elCategory.title}</div>
       {gameLines
         .filter((gameLine) => gameLine.Question.categoryId === elCategory.id)
-        .map((gameLine) => (
+        .map((gameLine, index) => (
           <div key={gameLine.Question.id}>
             <button
               type="button"
@@ -33,7 +33,9 @@ function Theme({ elCategory, gameLines }: ThemeProps): JSX.Element {
               onClick={() => handleOpenModal(gameLine.Question.id)}
               disabled={gameLine.status}
             >
-              <h2 className="question">{gameLine.Question.name}</h2>
+              <h2 className="question">
+                {elCategory.title} за {`${index + 1}00`}
+              </h2>
             </button>
             {activeQuestionId === gameLine.Question.id && (
               <ModalWindow active={activeQuestionId} setActive={handleCloseModal}>

@@ -100,3 +100,27 @@ body {
 .logoutButton:active {
   transform: scale(0.95);
 }
+
+.RatingButton {
+  padding: 10px 20px;
+  border: 2px solid #2ca24e;
+  background-color: transparent;
+  color: #2ca24e;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Press Start 2P', cursive; 
+}
+
+.RatingButton:hover {
+  background-color: #2ca24e;
+  color: #111;
+}
+
+.RatingButton:active {
+  transform: scale(0.95);
+}

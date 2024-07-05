@@ -39,7 +39,7 @@ function ModalQuest({ gameLine }: ModalQuestProps): JSX.Element {
     <div className="ModalQuest">
       <form onSubmit={onHandleSubmit}>
         <h1>{question.name}</h1>
-        {gameLine.Question.categoryId === 2 && <img src={question.img} alt="img" />}
+        {gameLine.Question.categoryId !== 1 && <img src={question.img} alt="img" />}
         <input
           type="text"
           placeholder="Ответ"
