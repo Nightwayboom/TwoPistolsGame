@@ -14,6 +14,10 @@ function RegistrationPage(): JSX.Element {
 
   const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    if (!login && !email && !password) {
+      alert('Заполни поля');
+      return;
+    }
     if (password.trim() === checkPassword.trim()) {
       dispatch(registrationThunk({ login, email, password }))
         .then(() => {
