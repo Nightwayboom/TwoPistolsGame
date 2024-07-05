@@ -30,10 +30,10 @@ class GameApi {
     }
   };
 
-	static answeredQuestion = async(id:number): Promise<GameLineWithQuestion> => {
+	static answeredQuestionRight = async(id:number): Promise<{ message: 'success', gameLine: GameLineWithQuestion, game: Game }> => {
 		try {
-			const result: AxiosResponse<{ message: 'success', gameLine: GameLineWithQuestion }> = await axiosInstance.patch(`/games/gameLines/${id}`)
-			return result.data.gameLine
+			const result: AxiosResponse<{ message: 'success', gameLine: GameLineWithQuestion, game: Game }> = await axiosInstance.patch(`/games/gameLinesRight/${id}`)
+			return result.data
 		} catch (error) {
 			throw new Error('Не обновил статус отвеченного вопроса');
 		}

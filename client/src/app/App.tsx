@@ -4,7 +4,7 @@ import AppRoutes from './provider/router/AppRoutes';
 import { useAppDispatch } from './store/store';
 import { refreshUser } from '../entities/users/authSlice';
 import { loadCurrentGameAndGameLineThunk } from '../entities/game/gameSlices'
-import { loadCategoriesThunk } from '../entities/categories/categorySlices';
+import { loadCategoriesThunk } from '../entities/categories/categorySlices'
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
