@@ -17,13 +17,19 @@ function ModalQuest({ gameLine }: ModalQuestProps): JSX.Element {
   console.log(gameLine);
   const [answer, setAnswer] = useState('');
 
+  const [ok, setOk] = useState('');
+  const [verno, setVerno] = useState(false);
+  const [verno1, setVerno1] = useState(false);
+
   const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (answer.toLowerCase().trim() === question.answer.toLowerCase().trim()) {
-      alert('Правильно');
+      setVerno(true);
+      setOk('Правильно');
       void dispatch(updateAnswerQuestionPlusThunk(gameLine.id));
     } else {
-      alert('Не правильно');
+      setVerno1(true);
+      setOk('Не правильно');
       void dispatch(updateAnswerQuestionMinusThunk(gameLine.id));
     }
   };
@@ -48,6 +54,8 @@ function ModalQuest({ gameLine }: ModalQuestProps): JSX.Element {
           onKeyDown={handleKeyDown}
         />
         <button type="submit">Ответить</button>
+        {verno && <p className="okk">{ok}</p>}
+        {verno1 && <p className="okk">{ok}</p>}
       </form>
     </div>
   );
