@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Themes } from './GamePage';
-import './ThemeLine.css';
+import './css/ThemeLine.css';
 import ModalWindow from '../../shared/ui/Modal/Modal';
 import ModalQuest from './ModalQuest';
 import type { GameLineWithQuestion } from '../../entities/game/types/gameTypes';

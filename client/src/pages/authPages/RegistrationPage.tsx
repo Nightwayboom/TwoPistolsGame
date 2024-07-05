@@ -35,7 +35,6 @@ function RegistrationPage(): JSX.Element {
           onChange={(e) => setLogin(e.target.value)}
         />
       </label>
-      <br />
       <label htmlFor="email">
         Email:
         <input
@@ -46,7 +45,6 @@ function RegistrationPage(): JSX.Element {
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      <br />
       <label htmlFor="password">
         Password:
         <input
@@ -57,7 +55,6 @@ function RegistrationPage(): JSX.Element {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <br />
       <label htmlFor="password">
         Check password:
         <input
@@ -68,14 +65,10 @@ function RegistrationPage(): JSX.Element {
           onChange={(e) => setCheckPassword(e.target.value)}
         />
       </label>
-      <br />
       <div className="button-container">
-        <Button type="submit" theme={ThemeButton.PRIMARY}>
-          Sign up
-        </Button>
-        <Link to="/sign-in" className="login-button">
-          Sign in
-        </Link>
+        <button type="submit" className="login-button">
+          LET`S GO MY BOY
+        </button>
       </div>
     </form>
   );

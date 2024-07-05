@@ -1,18 +1,20 @@
 import React from 'react';
 import './NavBar.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../app/store/store';
 import { useAppDispatch } from '../../app/store/store';
 import { logoutThunk } from '../../entities/users/authSlice';
 
 function NavBar(): JSX.Element {
+  const navigate = useNavigate()
   const { user, game } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
 
   const onHandleLogout = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     dispatch(logoutThunk()).then().catch(console.log);
+    navigate('/')
   };
   return (
     <nav className="cyberpunk-navbar">

@@ -30,7 +30,7 @@ function AuthorizationPage(): JSX.Element {
         />
       </label>
       <label htmlFor="password">
-        Пароль:
+        Password:
         <input
           type="password"
           name="password"
@@ -39,7 +39,7 @@ function AuthorizationPage(): JSX.Element {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <button type="submit">Заходи, че</button>
+      <button type="submit">LET`S GO</button>
     </form>
   );
 }

@@ -1,52 +1,81 @@
+/* Основные стили для формы */
 form {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  min-height: 250px;
-  max-height: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-}
-
-/* Стили для инпутов */
-form input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-/* Стили для кнопок */
-form button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #4caf50;
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-form button:hover {
-  background-color: #45a049;
-}
-
-/* Адаптивные стили для мобильных устройств */
-@media (max-width: 600px) {
-  form {
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    min-height: 250px;
+    max-height: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный фон */
+    box-shadow: 0 0 15px rgba(0, 255, 229, 0.5); /* Киберпанковская подсветка */
+    color: #00ffe1; /* Основной цвет текста */
+    font-family: 'Orbitron', sans-serif; /* Футуристический шрифт */
   }
-
-  form button {
+  
+  /* Стили для инпутов */
+  form input {
     width: 100%;
-    margin-top: 10px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон */
+    color: #00ffe1; /* Цвет текста */
+    font-family: 'Orbitron', sans-serif; /* Футуристический шрифт */
+    outline: none;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 255, 229, 0.5);
+    transition: box-shadow 0.3s ease;
   }
-}
+  
+  form input:focus {
+    box-shadow: 0 0 20px rgba(0, 255, 229, 1); /* Усиление подсветки при фокусе */
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  /* Стили для кнопок */
+  form button, .login-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(0, 255, 229, 0.8);
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+  }
+  
+  form button:hover, .login-button:hover {
+    background-color: rgba(0, 255, 229, 1);
+    transform: scale(1.05);
+  }
+  
+  /* Стили для заголовков */
+  form label {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #00ffe1; /* Основной цвет текста */
+  }
+  
+  /* Адаптивные стили для мобильных устройств */
+  @media (max-width: 600px) {
+    form {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    form button {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  
