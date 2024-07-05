@@ -3,11 +3,13 @@ import NavBar from '../widgets/navbar/NavBar';
 import AppRoutes from './provider/router/AppRoutes';
 import { useAppDispatch } from './store/store';
 import { refreshUser } from '../entities/users/authSlice';
+import { loadCurrentGameAndGameLineThunk } from '../entities/game/gameSlices'
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(refreshUser()).catch(console.log);
+    void dispatch(refreshUser());
+    void dispatch(loadCurrentGameAndGameLineThunk())
   }, [dispatch]);
 
   return (

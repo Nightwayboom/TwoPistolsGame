@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Theme from './Theme';
+import type { RootState } from '../../app/store/store';
 
 export type Themes = {
   title: string;
@@ -22,7 +24,13 @@ const themes: Themes[] = [
 ];
 
 const questions: Questions[] = [
-  { name: 'суем в 300', id: 1, categoryId: 1, answer: 'da', img: 'https://png.pngtree.com/png-clipart/20231017/original/pngtree-burger-food-png-free-download-png-image_13329458.png' },
+  {
+    name: 'суем в 300',
+    id: 1,
+    categoryId: 1,
+    answer: 'da',
+    img: 'https://png.pngtree.com/png-clipart/20231017/original/pngtree-burger-food-png-free-download-png-image_13329458.png',
+  },
   { name: '300', id: 2, categoryId: 3, answer: 'da', img: 'asd' },
   { name: 'бахнем за 300', id: 3, categoryId: 2, answer: 'da', img: 'asd' },
   { name: 'пихаем в 500', id: 4, categoryId: 1, answer: 'da', img: 'asd' },
@@ -33,17 +41,21 @@ const questions: Questions[] = [
   { name: 'уйдем за 600', id: 9, categoryId: 2, answer: 'da', img: 'asd' },
 ];
 
-const GamePage: React.FC = () => {
+function GamePage(): JSX.Element {
+  const { game, gameLines } = useSelector((state: RootState) => state.game);
+  console.log(game, 'Текущая игра');
+  console.log(gameLines);
+
   return (
     <div className="GamePage">
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h1 style={{marginBottom: '60px'}}>Темки</h1>
+        <h1 style={{ marginBottom: '60px' }}>Темки</h1>
         {themes.map((theme) => (
           <Theme theme={theme} questions={questions} key={theme.id} />
         ))}
       </div>
     </div>
   );
-};
+}
 
 export default GamePage;

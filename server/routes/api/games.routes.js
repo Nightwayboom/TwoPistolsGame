@@ -3,13 +3,15 @@ const { Game, GameLine, Question } = require('../../db/models')
 const path = require('path')
 const verifyAccessToken = require('../../middleware/verifyAccessToken')
 
-router.get('/games', async (req, res) => {
+router.get('/findGameCurrent',verifyAccessToken, async (req, res) => {
 	try {
-		const games = await Game.findAll({
-			order: [['id', 'ASC']],
+		const {game} = res.locals
+		const findGame = await Game.findOne({
+			where: { id: game.id },
+			include: {model: GameLine, include: Question},
 		})
-		console.log(games)
-		res.status(200).json({ message: 'success', games })
+
+		res.status(200).json({ message: 'success', findGame })
 	} catch ({ message }) {
 		res.status(500).json({ error: message })
 	}
@@ -46,9 +48,9 @@ router.post('/gameStart', verifyAccessToken, async (req, res) => {
 					where: { gameId: game.id },
 					include: Question,
 				})
-				res.locals.game = game;
-				res.locals.user = user;
-				console.log(user);
+				res.locals.game = game
+				res.locals.user = user
+				console.log(user)
 				res.status(200).json({ message: 'success', game, gameLines })
 			}, 2000)
 		}
@@ -84,7 +86,7 @@ router.patch('/gameLines/:gameLineId', async (req, res) => {
 // 		const { gameLineId } = req.params
 // 		const game = await Game.update({score})
 // 	} catch (error) {
-		
+
 // 	}
 // })
 
