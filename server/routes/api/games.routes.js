@@ -8,7 +8,11 @@ router.get('/findGameCurrent', verifyAccessToken, async (req, res) => {
 		const { game } = res.locals
 		const findGame = await Game.findOne({
 			where: { id: game.id },
-			include: { model: GameLine, include: Question },
+			include: {
+				model: GameLine,
+				include: Question,
+				order: [[{ model: GameLine }, 'id', 'ASC']], // не работает 
+			},
 		})
 
 		res.status(200).json({ message: 'success', findGame })
@@ -59,32 +63,39 @@ router.post('/gameStart', verifyAccessToken, async (req, res) => {
 	}
 })
 
-router.patch('/gameLines/:gameLineId', verifyAccessToken, async (req, res) => {
-	try {
-		const { game } = res.locals //  Текущая игра 
-		const { gameLineId } = req.params // текущий GameLine
-		const updateGameLine = await GameLine.update(
-			{ status: true },
-			{ where: { id: gameLineId, gameId: game.id } }
-		)
-		if (updateGameLine[0] > 0) {
-			const updateGame = Game.update(
-				{ score: game.score + 100 },
-				{ where: { id: game.id } }
+router.patch(
+	'/gameLinesRight/:gameLineId',
+	verifyAccessToken,
+	async (req, res) => {
+		try {
+			const { game } = res.locals //  Текущая игра
+			const point = game.point + 100
+			const { gameLineId } = req.params // текущий GameLine
+			const updateGameLine = await GameLine.update(
+				{ status: true },
+				{ where: { id: gameLineId, gameId: game.id } }
 			)
-			if (updateGame[0] > 0) {
-				const gameLine = await GameLine.findOne({
-					where: { id: gameLineId },
-					include: Question,
-				})
-				const game = await Game.findOne({ where: { id: game.id } })
-				res.status(200).json({ message: 'success', gameLine, game })
+			if (updateGameLine[0] > 0) {
+				const updateGame = await Game.update(
+					{ point },
+					{ where: { id: game.id } }
+				)
+				if (updateGame[0] > 0) {
+					const gameLine = await GameLine.findOne({
+						where: { id: gameLineId },
+						include: Question,
+					})
+					let gameFind = await Game.findOne({ where: { id: game.id } })
+					console.log(gameFind)
+					res.status(200).json({ message: 'success', gameLine, game: gameFind })
+				}
 			}
+			// res.status(200).json({ message: 'Ошибка' })
+		} catch ({ message }) {
+			res.status(500).json({ error: message })
 		}
-	} catch ({ message }) {
-		res.status(500).json({ error: message })
 	}
-})
+)
 
 // router.patch('/gameScore/:gameId',async(req,res)=>{
 // 	try {
