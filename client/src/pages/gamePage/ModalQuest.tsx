@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ThemeLine.css';
+import './css/ThemeLine.css';
 import type { GameLineWithQuestion } from '../../entities/game/types/gameTypes';
 import { useAppDispatch } from '../../app/store/store';
 import {
