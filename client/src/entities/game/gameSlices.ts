@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { Game, GameLineWithQuestion } from './types/gameTypes';
 import GameApi from './api/gameApi';
+import type { GameRating } from '../users/types/userTypes';
 
 type StateCurrentGame = {
   game: Game | undefined;
+  rating: GameRating[];
   gameLines: GameLineWithQuestion[];
   error: string | undefined;
   loading: boolean;
@@ -12,8 +14,9 @@ type StateCurrentGame = {
 const initialState: StateCurrentGame = {
   game: undefined,
   gameLines: [],
+  rating: [],
   error: undefined,
-  loading: true,
+  loading: false,
 };
 
 export const loadCurrentGameAndGameLineThunk = createAsyncThunk('load/games', () =>
@@ -32,6 +35,7 @@ export const updateAnswerQuestionMinusThunk = createAsyncThunk(
   'updateWrong/gameQuest',
   (id: number) => GameApi.answeredQuestionWrong(id),
 );
+export const getGamesRatingThunk = createAsyncThunk('rating/games', () => GameApi.getGamesRating());
 
 const GameSlice = createSlice({
   name: 'game',
@@ -74,6 +78,10 @@ const GameSlice = createSlice({
         //     gameLine.id === action.payload.gameLine.id ? action.payload.gameLine : gameLine,
         //   );
         // }
+      })
+      .addCase(getGamesRatingThunk.fulfilled, (state, action) => {
+        state.rating = action.payload.gamesRating;
+        state.loading = false;
       });
   },
 });

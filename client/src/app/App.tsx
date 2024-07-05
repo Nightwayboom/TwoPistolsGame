@@ -3,7 +3,7 @@ import NavBar from '../widgets/navbar/NavBar';
 import AppRoutes from './provider/router/AppRoutes';
 import { useAppDispatch } from './store/store';
 import { refreshUser } from '../entities/users/authSlice';
-import { loadCurrentGameAndGameLineThunk } from '../entities/game/gameSlices'
+import { getGamesRatingThunk, loadCurrentGameAndGameLineThunk } from '../entities/game/gameSlices'
 import { loadCategoriesThunk } from '../entities/categories/categorySlices'
 
 function App(): JSX.Element {
@@ -12,6 +12,7 @@ function App(): JSX.Element {
     void dispatch(refreshUser());
     void dispatch(loadCurrentGameAndGameLineThunk())
     void dispatch(loadCategoriesThunk())
+    void dispatch(getGamesRatingThunk())
   }, [dispatch]);
 
   return (

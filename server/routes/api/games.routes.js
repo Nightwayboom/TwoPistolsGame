@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Game, GameLine, Question } = require('../../db/models')
+const { Game, GameLine, Question, User } = require('../../db/models')
 const path = require('path')
 const verifyAccessToken = require('../../middleware/verifyAccessToken')
 
@@ -14,10 +14,6 @@ router.get('/findGameCurrent', verifyAccessToken, async (req, res) => {
 				order: [[{ model: GameLine }, 'id', 'ASC']], // не работает
 			},
 		})
-		// const endGame = findGame.GameLines.every(gameEndLine => gameEndLine.status)
-		// if (endGame) {
-		// 	console.log('Игра закончилась')
-		// }
 
 		res.status(200).json({ message: 'success', findGame })
 	} catch ({ message }) {
@@ -25,18 +21,18 @@ router.get('/findGameCurrent', verifyAccessToken, async (req, res) => {
 	}
 })
 
-// router.get('/gamesLines', verifyAccessToken, async (req, res) => {
-// 	try {
-// 		const gameLines = await GameLine.findAll({
-// 			where: { gameId: 1 },
-// 			include: Question,
-// 			order: [['id', 'ASC']],
-// 		})
-// 		res.status(200).json({ message: 'success', gameLines })
-// 	} catch ({ message }) {
-// 		res.status(500).json({ error: message })
-// 	}
-// })
+router.get('/usersRating', async (req, res) => {
+	try {
+		const gamesRating = await Game.findAll({
+			where: { status: true },
+			include: User,
+			order: [['id', 'ASC']],
+		})
+		res.status(200).json({ message: 'success', gamesRating })
+	} catch ({ message }) {
+		res.status(500).json({ error: message })
+	}
+})
 
 router.post('/gameStart', verifyAccessToken, async (req, res) => {
 	try {

@@ -1,9 +1,13 @@
 import type { AxiosResponse } from 'axios';
 import type { Game, GameLineWithQuestion, RefreshGame } from '../types/gameTypes';
 import axiosInstance from '../../../services/axiosInstance';
+import type { GameRating } from '../../users/types/userTypes';
 
 class GameApi {
-  static getCurrentGameAndLines = async (): Promise<{ message: 'success'; findGame: RefreshGame }> => {
+  static getCurrentGameAndLines = async (): Promise<{
+    message: 'success';
+    findGame: RefreshGame;
+  }> => {
     try {
       const result: AxiosResponse<{ message: 'success'; findGame: RefreshGame }> =
         await axiosInstance.get('/games/findGameCurrent');
@@ -30,23 +34,45 @@ class GameApi {
     }
   };
 
-	static answeredQuestionRight = async(id:number): Promise<{ message: 'success', gameLine: GameLineWithQuestion, game: Game }> => {
-		try {
-			const result: AxiosResponse<{ message: 'success', gameLine: GameLineWithQuestion, game: Game }> = await axiosInstance.patch(`/games/gameLinesRight/${id}`)
-			return result.data
-		} catch (error) {
-			throw new Error('Не обновил статус отвеченного вопроса');
-		}
-	}
+  static answeredQuestionRight = async (
+    id: number,
+  ): Promise<{ message: 'success'; gameLine: GameLineWithQuestion; game: Game }> => {
+    try {
+      const result: AxiosResponse<{
+        message: 'success';
+        gameLine: GameLineWithQuestion;
+        game: Game;
+      }> = await axiosInstance.patch(`/games/gameLinesRight/${id}`);
+      return result.data;
+    } catch (error) {
+      throw new Error('Не обновил статус отвеченного вопроса');
+    }
+  };
 
-	static answeredQuestionWrong = async(id:number): Promise<{ message: 'success', gameLine: GameLineWithQuestion, game: Game }> => {
-		try {
-			const result: AxiosResponse<{ message: 'success', gameLine: GameLineWithQuestion, game: Game }> = await axiosInstance.patch(`/games/gameLinesWrong/${id}`)
-			return result.data
-		} catch (error) {
-			throw new Error('Не обновил статус отвеченного вопроса');
-		}
-	}
+  static answeredQuestionWrong = async (
+    id: number,
+  ): Promise<{ message: 'success'; gameLine: GameLineWithQuestion; game: Game }> => {
+    try {
+      const result: AxiosResponse<{
+        message: 'success';
+        gameLine: GameLineWithQuestion;
+        game: Game;
+      }> = await axiosInstance.patch(`/games/gameLinesWrong/${id}`);
+      return result.data;
+    } catch (error) {
+      throw new Error('Не обновил статус отвеченного вопроса');
+    }
+  };
+
+  static getGamesRating = async (): Promise<{ message: 'success'; gamesRating: GameRating[] }> => {
+    try {
+      const result: AxiosResponse<{ message: 'success'; gamesRating: GameRating[] }> =
+        await axiosInstance.get(`/games/usersRating`);
+      return result.data;
+    } catch (error) {
+      throw new Error('Не получил рейтинг');
+    }
+  };
 }
 
 export default GameApi;
