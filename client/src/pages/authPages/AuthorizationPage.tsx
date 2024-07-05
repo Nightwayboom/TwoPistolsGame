@@ -10,6 +10,10 @@ function AuthorizationPage(): JSX.Element {
 
   const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    if (!email && !password) {
+      alert('Заполни поля ');
+      return;
+    }
     dispatch(authorizationThunk({ email, password }))
       .then(() => {
         window.location.href = '/';

@@ -39,7 +39,7 @@ function Theme({ elCategory, gameLines }: ThemeProps): JSX.Element {
             </button>
             {activeQuestionId === gameLine.Question.id && (
               <ModalWindow active={activeQuestionId} setActive={handleCloseModal}>
-                <ModalQuest gameLine={gameLine} />
+                <ModalQuest gameLine={gameLine} setActive={handleCloseModal}/>
               </ModalWindow>
             )}
           </div>

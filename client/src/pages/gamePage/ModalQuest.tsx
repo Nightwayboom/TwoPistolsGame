@@ -9,9 +9,10 @@ import {
 
 type ModalQuestProps = {
   gameLine: GameLineWithQuestion;
+  setActive: (value: boolean) => void;
 };
 
-function ModalQuest({ gameLine }: ModalQuestProps): JSX.Element {
+function ModalQuest({ gameLine, setActive }: ModalQuestProps): JSX.Element {
   const question = gameLine.Question;
   const dispatch = useAppDispatch();
   console.log(gameLine);
@@ -27,10 +28,16 @@ function ModalQuest({ gameLine }: ModalQuestProps): JSX.Element {
       setVerno(true);
       setOk('Правильно');
       void dispatch(updateAnswerQuestionPlusThunk(gameLine.id));
+      setTimeout(() => {
+        setActive(false);
+      }, 2000);
     } else {
       setVerno1(true);
-      setOk('Не правильно');
+      setOk(`Не правильно Правильный ответ :${gameLine.Question.answer}`);
       void dispatch(updateAnswerQuestionMinusThunk(gameLine.id));
+      setTimeout(() => {
+        setActive(false);
+      }, 2000);
     }
   };
 
