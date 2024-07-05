@@ -1,26 +1,49 @@
-import React from 'react';
-import { Questions } from './GamePage';
+import React, { useState } from 'react';
 import './ThemeLine.css';
+import type { GameLineWithQuestion } from '../../entities/game/types/gameTypes';
+import { useAppDispatch } from '../../app/store/store';
+import { updateAnswerQuestionThunk } from '../../entities/game/gameSlices';
 
 type ModalQuestProps = {
-  gameLine: {
-    Question: Questions;
-  };
+  gameLine: GameLineWithQuestion;
 };
 
-const ModalQuest = ({ gameLine }: ModalQuestProps): JSX.Element => {
+function ModalQuest({ gameLine }: ModalQuestProps): JSX.Element {
   const question = gameLine.Question;
+  const dispatch = useAppDispatch();
   console.log(gameLine);
+  const [answer, setAnswer] = useState('');
+
+  const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    if (answer.toLowerCase().trim() === question.answer.toLowerCase().trim()) {
+      alert('Правильно');
+      void dispatch(updateAnswerQuestionThunk(gameLine.id));
+    } else alert('Не правильно');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === ' ') {
+      e.preventDefault();
+      setAnswer((prev) => `${prev} `);
+    }
+  };
 
   return (
     <div className="ModalQuest">
-      <h1>{question.name}</h1>
-      {gameLine.Question.categoryId === 2 && (
-        <img src={question.img} alt="img" />
-      )}
-      <input type="text" placeholder="Ответ" />
-      <button type="button">Ответить</button>
+      <form onSubmit={onHandleSubmit}>
+        <h1>{question.name}</h1>
+        {gameLine.Question.categoryId === 2 && <img src={question.img} alt="img" />}
+        <input
+          type="text"
+          placeholder="Ответ"
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <button type="submit">Ответить</button>
+      </form>
     </div>
   );
-};
+}
 export default ModalQuest;

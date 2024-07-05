@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-import { Questions, Themes } from './GamePage';
+import type { Themes } from './GamePage';
 import './ThemeLine.css';
 import ModalWindow from '../../shared/ui/Modal/Modal';
 import ModalQuest from './ModalQuest';
+import type { GameLineWithQuestion } from '../../entities/game/types/gameTypes';
 
 type ThemeProps = {
-//   theme: Themes;
-//   questions: Questions[];
+  //   theme: Themes;
+  //   questions: Questions[];
   elCategory: Themes;
-  gameLines: {
-    Question: Questions;
-  }[];
+  gameLines: GameLineWithQuestion[];
 };
 
-const Theme = ({ elCategory, gameLines }: ThemeProps): JSX.Element => {
+function Theme({ elCategory, gameLines }: ThemeProps): JSX.Element {
   const [activeQuestionId, setActiveQuestionId] = useState<number | null>(null);
 
-  const handleOpenModal = (id: number) => {
+  const handleOpenModal = (id: number): void => {
     setActiveQuestionId(id);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     setActiveQuestionId(null);
   };
 
@@ -31,11 +30,17 @@ const Theme = ({ elCategory, gameLines }: ThemeProps): JSX.Element => {
         .filter((gameLine) => gameLine.Question.categoryId === elCategory.id)
         .map((gameLine) => (
           <div key={gameLine.Question.id}>
-            <button type="button" onClick={() => handleOpenModal(gameLine.Question.id)}>
-              <h2 className="question">{gameLine.Question.name}</h2>
-            </button>
+            {gameLine.status ? (
+              <button type="button" onClick={() => handleOpenModal(gameLine.Question.id)} disabled>
+                <h2 className="question">{gameLine.Question.name}</h2>
+              </button>
+            ) : (
+              <button type="button" onClick={() => handleOpenModal(gameLine.Question.id)}>
+                <h2 className="question">{gameLine.Question.name}</h2>
+              </button>
+            )}
             {activeQuestionId === gameLine.Question.id && (
-              <ModalWindow active={true} setActive={handleCloseModal}>
+              <ModalWindow active={activeQuestionId} setActive={handleCloseModal}>
                 <ModalQuest gameLine={gameLine} />
               </ModalWindow>
             )}
@@ -43,5 +48,5 @@ const Theme = ({ elCategory, gameLines }: ThemeProps): JSX.Element => {
         ))}
     </div>
   );
-};
+}
 export default Theme;
