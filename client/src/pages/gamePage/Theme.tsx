@@ -5,11 +5,15 @@ import ModalWindow from '../../shared/ui/Modal/Modal';
 import ModalQuest from './ModalQuest';
 
 type ThemeProps = {
-  theme: Themes;
-  questions: Questions[];
+//   theme: Themes;
+//   questions: Questions[];
+  elCategory: Themes;
+  gameLines: {
+    Question: Questions;
+  }[];
 };
 
-const Theme = ({ theme, questions }: ThemeProps): JSX.Element => {
+const Theme = ({ elCategory, gameLines }: ThemeProps): JSX.Element => {
   const [activeQuestionId, setActiveQuestionId] = useState<number | null>(null);
 
   const handleOpenModal = (id: number) => {
@@ -21,18 +25,18 @@ const Theme = ({ theme, questions }: ThemeProps): JSX.Element => {
   };
 
   return (
-    <div className='ThemeLine'>
-      <div className="theme">{theme.title}</div>
-      {questions
-        .filter((question) => question.categoryId === theme.id)
-        .map((question) => (
-          <div key={question.id}>
-            <button type="button" onClick={() => handleOpenModal(question.id)}>
-              <h2 className="question">{question.name}</h2>
+    <div className="ThemeLine">
+      <div className="theme">{elCategory.title}</div>
+      {gameLines
+        .filter((gameLine) => gameLine.Question.categoryId === elCategory.id)
+        .map((gameLine) => (
+          <div key={gameLine.Question.id}>
+            <button type="button" onClick={() => handleOpenModal(gameLine.Question.id)}>
+              <h2 className="question">{gameLine.Question.name}</h2>
             </button>
-            {activeQuestionId === question.id && (
+            {activeQuestionId === gameLine.Question.id && (
               <ModalWindow active={true} setActive={handleCloseModal}>
-                <ModalQuest question={question} />
+                <ModalQuest gameLine={gameLine} />
               </ModalWindow>
             )}
           </div>

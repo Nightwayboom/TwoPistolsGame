@@ -7,15 +7,15 @@ module.exports = {
 			'Categories',
 			[
 				{
-					title: 'Первая категория',
+					title: 'ЧЕРНУХА',
 					img: 'https://opis-cdn.tinkoffjournal.ru/mercury/kategorii-prav-1.pmeffyynjsfc..png',
 				},
 				{
-					title: 'Вторая категория',
+					title: 'УГАДАЙ СЛОВО ПО IMG',
 					img: 'https://opis-cdn.tinkoffjournal.ru/mercury/kategorii-prav-1.pmeffyynjsfc..png',
 				},
 				{
-					title: 'Третья категория',
+					title: 'УГАДАЙ КТО',
 					img: 'https://opis-cdn.tinkoffjournal.ru/mercury/kategorii-prav-1.pmeffyynjsfc..png',
 				},
 			],

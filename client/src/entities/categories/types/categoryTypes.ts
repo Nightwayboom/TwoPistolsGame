@@ -1,9 +1,7 @@
 export type Category = {
   id: number;
-  name: string;
-  answer: string;
+  title: string;
   img: string;
-  categoryId: number;
 };
 
 export type CategoryId = Category['id'];
