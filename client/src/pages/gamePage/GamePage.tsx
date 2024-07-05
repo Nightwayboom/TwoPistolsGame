@@ -19,22 +19,31 @@ export type Questions = {
 };
 
 function GamePage(): JSX.Element {
-  const { gameLines } = useSelector((state: RootState) => state.game);
+  const { gameLines, game } = useSelector((state: RootState) => state.game);
   const { category } = useSelector((state: RootState) => state.categories);
   function filterAndSortById(array: GameLineWithQuestion[]): GameLineWithQuestion[] {
     const arrayCopy = [...array];
     return arrayCopy.sort((a, b) => a.id - b.id);
   }
   const sortedGameLines = filterAndSortById(gameLines);
+console.log(game);
 
   return (
     <div className="GamePage">
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h1 style={{ marginBottom: '60px' }}>Темки</h1>
-        {category.map((elCategory) => (
-          <Theme elCategory={elCategory} gameLines={sortedGameLines} key={elCategory.id} />
-        ))}
-      </div>
+      {game&& !game.status ? (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <h1 style={{ marginBottom: '60px' }}>Темки</h1>
+          {category.map((elCategory) => (
+            <Theme elCategory={elCategory} gameLines={sortedGameLines} key={elCategory.id} />
+          ))}
+        </div>
+      ) : (
+        <>
+        <h2>Игра закончилась</h2>
+        <h3>Твой счет: {game && game.point}</h3>
+        <a href="/">На главную страницу </a>
+        </>
+      )}
     </div>
   );
 }

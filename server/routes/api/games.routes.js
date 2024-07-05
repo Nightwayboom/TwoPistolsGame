@@ -11,9 +11,13 @@ router.get('/findGameCurrent', verifyAccessToken, async (req, res) => {
 			include: {
 				model: GameLine,
 				include: Question,
-				order: [[{ model: GameLine }, 'id', 'ASC']], // не работает 
+				order: [[{ model: GameLine }, 'id', 'ASC']], // не работает
 			},
 		})
+		// const endGame = findGame.GameLines.every(gameEndLine => gameEndLine.status)
+		// if (endGame) {
+		// 	console.log('Игра закончилась')
+		// }
 
 		res.status(200).json({ message: 'success', findGame })
 	} catch ({ message }) {
@@ -86,7 +90,26 @@ router.patch(
 						include: Question,
 					})
 					let gameFind = await Game.findOne({ where: { id: game.id } })
-					console.log(gameFind)
+					const checkEndGameLines = await GameLine.findAll({
+						where: { gameId: game.id },
+						include: Question,
+						order: [['id', 'ASC']],
+					})
+					const endGame = checkEndGameLines.every(
+						gameEndLine => gameEndLine.status
+					)
+					if (endGame) {
+						console.log('Игра закончилась')
+						const updateGame = await Game.update(
+							{ status: true },
+							{ where: { id: game.id } }
+						)
+						if (updateGame[0] > 0) {
+							res.status(200).json({ message: 'Game over!', gameLine })
+							return
+						}
+					}
+
 					res.status(200).json({ message: 'success', gameLine, game: gameFind })
 				}
 			}
@@ -96,14 +119,59 @@ router.patch(
 		}
 	}
 )
-
-// router.patch('/gameScore/:gameId',async(req,res)=>{
-// 	try {
-// 		const { gameLineId } = req.params
-// 		const game = await Game.update({score})
-// 	} catch (error) {
-
-// 	}
-// })
+router.patch(
+	'/gameLinesWrong/:gameLineId',
+	verifyAccessToken,
+	async (req, res) => {
+		try {
+			const { game } = res.locals //  Текущая игра
+			const point = game.point - 100
+			const { gameLineId } = req.params // текущий GameLine
+			const updateGameLine = await GameLine.update(
+				{ status: true },
+				{ where: { id: gameLineId, gameId: game.id } }
+			)
+			if (updateGameLine[0] > 0) {
+				const updateGame = await Game.update(
+					{ point },
+					{ where: { id: game.id } }
+				)
+				if (updateGame[0] > 0) {
+					const gameLine = await GameLine.findOne({
+						where: { id: gameLineId },
+						include: Question,
+					})
+					let gameFind = await Game.findOne({ where: { id: game.id } })
+					const checkEndGameLines = await GameLine.findAll({
+						where: { gameId: game.id },
+						include: Question,
+						order: [['id', 'ASC']],
+					})
+					const endGame = checkEndGameLines.every(
+						gameEndLine => gameEndLine.status
+					)
+					if (endGame) {
+						console.log('Игра закончилась')
+						const updateGame = await Game.update(
+							{ status: true },
+							{ where: { id: game.id } }
+						)
+						if (updateGame[0] > 0) {
+							let gameFind = await Game.findOne({ where: { id: game.id } })
+							res
+								.status(200)
+								.json({ message: 'Game over!', gameLine, game: gameFind })
+							return
+						}
+					}
+					res.status(200).json({ message: 'success', gameLine, game: gameFind })
+				}
+			}
+			// res.status(200).json({ message: 'Ошибка' })
+		} catch ({ message }) {
+			res.status(500).json({ error: message })
+		}
+	}
+)
 
 module.exports = router

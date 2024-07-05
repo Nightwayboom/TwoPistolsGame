@@ -38,6 +38,15 @@ class GameApi {
 			throw new Error('Не обновил статус отвеченного вопроса');
 		}
 	}
+
+	static answeredQuestionWrong = async(id:number): Promise<{ message: 'success', gameLine: GameLineWithQuestion, game: Game }> => {
+		try {
+			const result: AxiosResponse<{ message: 'success', gameLine: GameLineWithQuestion, game: Game }> = await axiosInstance.patch(`/games/gameLinesWrong/${id}`)
+			return result.data
+		} catch (error) {
+			throw new Error('Не обновил статус отвеченного вопроса');
+		}
+	}
 }
 
 export default GameApi;

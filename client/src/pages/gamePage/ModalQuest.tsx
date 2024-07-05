@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import './ThemeLine.css';
 import type { GameLineWithQuestion } from '../../entities/game/types/gameTypes';
 import { useAppDispatch } from '../../app/store/store';
-import { updateAnswerQuestionThunk } from '../../entities/game/gameSlices';
+import {
+  updateAnswerQuestionMinusThunk,
+  updateAnswerQuestionPlusThunk,
+} from '../../entities/game/gameSlices';
 
 type ModalQuestProps = {
   gameLine: GameLineWithQuestion;
@@ -18,8 +21,11 @@ function ModalQuest({ gameLine }: ModalQuestProps): JSX.Element {
     e.preventDefault();
     if (answer.toLowerCase().trim() === question.answer.toLowerCase().trim()) {
       alert('Правильно');
-      void dispatch(updateAnswerQuestionThunk(gameLine.id));
-    } else alert('Не правильно');
+      void dispatch(updateAnswerQuestionPlusThunk(gameLine.id));
+    } else {
+      alert('Не правильно');
+      void dispatch(updateAnswerQuestionMinusThunk(gameLine.id));
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
