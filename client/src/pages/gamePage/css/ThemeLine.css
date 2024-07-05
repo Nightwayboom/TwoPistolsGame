@@ -136,3 +136,27 @@ body {
   background-color: #444;
   cursor: not-allowed;
 }
+
+.okk {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5em;
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 5px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.okk.verno {
+  color: #00ff00;
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+}
+
+.okk.verno1 {
+  color: #ff0000;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+}
