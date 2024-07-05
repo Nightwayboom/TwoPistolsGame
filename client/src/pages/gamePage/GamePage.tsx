@@ -4,6 +4,7 @@ import Theme from './Theme';
 import type { RootState } from '../../app/store/store';
 import type { GameLineWithQuestion } from '../../entities/game/types/gameTypes';
 import { useNavigate } from 'react-router-dom'
+import './css/end.css'
 
 export type Themes = {
   title: string;
@@ -45,9 +46,9 @@ console.log(game);
         </div>
       ) : (
         <>
-        <h2>Игра закончилась</h2>
-        <h3>Твой счет: {game && game.point}</h3>
-        <a href="/">На главную страницу </a>
+        <h2 className='end'>Игра закончилась</h2>
+        <h3 className='end'>Твой счет: {game && game.point}</h3>
+        <a href="/" className='end'>На главную страницу </a>
         </>
       )}
     </div>
