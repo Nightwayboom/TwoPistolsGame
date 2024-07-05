@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { Game, GameLine } from './types/gameTypes';
+import type { Game, GameLineWithQuestion } from './types/gameTypes';
 import GameApi from './api/gameApi';
 
 type StateCurrentGame = {
   game: Game | undefined;
-  gameLines: GameLine[];
+  gameLines: GameLineWithQuestion[];
   error: string | undefined;
   loading: boolean;
 };
