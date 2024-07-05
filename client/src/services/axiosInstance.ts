@@ -1,6 +1,7 @@
 import type { AxiosError } from 'axios';
 import axios from 'axios';
 import type { StoreType } from '../app/store/store';
+import type { User } from '../entities/users/types/userTypes';
 
 let store: StoreType;
 

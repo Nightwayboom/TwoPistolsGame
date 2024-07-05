@@ -27,6 +27,7 @@ const CategorySlice = createSlice({
       .addCase(loadCategoriesThunk.fulfilled, (state, action) => {
         state.category = action.payload;
         state.loading = false;
+        
       })
       .addCase(loadCategoriesThunk.pending, (state) => {
         state.loading = true;

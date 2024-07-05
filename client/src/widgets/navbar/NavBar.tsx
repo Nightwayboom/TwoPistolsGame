@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../app/store/store';
 import { logoutThunk } from '../../entities/users/authSlice';
 
 function NavBar(): JSX.Element {
-  const { user } = useSelector((state: RootState) => state.user);
+  const { user, game } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
 
   const onHandleLogout = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -18,13 +18,19 @@ function NavBar(): JSX.Element {
     <nav className="cyberpunk-navbar">
       <div className="logo">Игруля</div>
       <ul className="nav-links">
+        <li>
+          <NavLink to="/">
+            <a>Главная</a>
+          </NavLink>
+        </li>
         {user ? (
           <>
-            <li>
-              <NavLink to="/">
-                <a>Главная</a>
-              </NavLink>
-            </li>
+            {user.user && game.game && (
+              <>
+                <li>Привет {user.user.login}</li>
+                <li>Твой счет: {game.game.point}</li>
+              </>
+            )}
             <button type="button" onClick={onHandleLogout}>
               Logout
             </button>
