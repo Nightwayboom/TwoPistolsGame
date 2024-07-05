@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 .h2style {
-    font-family: 'Orbitron', sans-serif; /* Футуристический шрифт */
-    font-size: 54px; /* Размер шрифта */
-    color: #00ffe1; /* Основной цвет текста */
-    text-align: center; /* Центрирование текста */
-    text-transform: uppercase; /* Преобразование текста в верхний регистр */
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 54px; 
+    color: #00ffe1; 
+    text-align: center; 
+    text-transform: uppercase; 
     text-shadow: 
-        0 0 5px #00ffe1, 
-        0 0 10px #00ffe1; /* Неоновое свечение */
-    margin: 20px 0; /* Отступы сверху и снизу */
+        0 0 5px #00ffe1,
+        0 0 10px #00ffe1; 
+    margin: 20px 0; 
     position: relative;
     z-index: 1;
 }
@@ -22,7 +22,6 @@
     transform: translate(-50%, -50%);
     width: 110%;
     height: 110%;
-    /* background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000); */
     filter: blur(5px);
     z-index: -1;
     opacity: 0.5;
