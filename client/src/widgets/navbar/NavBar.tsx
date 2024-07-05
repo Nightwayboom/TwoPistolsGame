@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './NavBar.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../app/store/store';
 import { useAppDispatch } from '../../app/store/store';
 import { logoutThunk } from '../../entities/users/authSlice';
+import RatingModal from '../../shared/ui/modalRating/RatingModal';
 
 function NavBar(): JSX.Element {
-  const navigate = useNavigate()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
   const { user, game } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
+  console.log(game.rating);
+
+  const openModal = (): void => setIsModalOpen(true);
+  const closeModal = (): void => setIsModalOpen(false);
 
   const onHandleLogout = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     dispatch(logoutThunk()).then().catch(console.log);
-    navigate('/')
+    navigate('/');
   };
   return (
     <nav className="cyberpunk-navbar">
@@ -25,14 +31,17 @@ function NavBar(): JSX.Element {
             <a>Главная</a>
           </NavLink>
         </li>
+        <li>
+          <button type="button" onClick={openModal}>
+            Рейтинг
+          </button>
+        </li>
         {user.user ? (
           <>
-            {user.user  && (
+            {user.user && (
               <>
                 <li>Привет {user.user.login}</li>
-                {game.game && 
-                <li>Твой счет: {game.game.point}</li>
-                }
+                {game.game && <li>Твой счет: {game.game.point}</li>}
               </>
             )}
             <button type="button" onClick={onHandleLogout}>
@@ -54,6 +63,7 @@ function NavBar(): JSX.Element {
           </>
         )}
       </ul>
+      {isModalOpen && <RatingModal users={game.rating} onClose={closeModal} />}
     </nav>
   );
 }
