@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0d0d0d;
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cyberpunk-navbar {
+  width: 100%;
+  padding: 20px 0;
+  background: rgba(31, 31, 31, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cyberpunk-navbar .logo {
+  font-size: 1.5em;
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+  padding-left: 20px;
+}
+
+.cyberpunk-navbar .nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.cyberpunk-navbar .nav-links li {
+  margin: 0 15px;
+}
+
+.cyberpunk-navbar .nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1em;
+  position: relative;
+}
+
+.cyberpunk-navbar .nav-links a::before {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #0ff;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.cyberpunk-navbar .nav-links a:hover::before {
+  visibility: visible;
+  width: 100%;
+}
+
+.cyberpunk-navbar .nav-links a:hover {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+}
+
+.logoutButton {
+  padding: 10px 20px;
+  border: 2px solid #ee1212;
+  background-color: transparent;
+  color: #eb5216;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Press Start 2P', cursive; 
+}
+
+.logoutButton:hover {
+  background-color: #f32c09;
+  color: #111;
+}
+
+.logoutButton:active {
+  transform: scale(0.95);
+}
+
+.RatingButton {
+  padding: 10px 20px;
+  border: 2px solid #2ca24e;
+  background-color: transparent;
+  color: #2ca24e;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Press Start 2P', cursive; 
+}
+
+.RatingButton:hover {
+  background-color: #2ca24e;
+  color: #111;
+}
+
+.RatingButton:active {
+  transform: scale(0.95);
+}

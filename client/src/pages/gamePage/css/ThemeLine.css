@@ -1,0 +1,165 @@
+body {
+  background-image: url('../../../img/123.jpg');
+  background-size: cover;
+}
+
+.ThemeLine {
+  display: flex;
+  gap: 3em;
+  height: 100px;
+  font-size: 25px;
+  margin: 10px;
+  gap: 20px;
+  color: gold;
+  justify-content: space-between;
+}
+
+.theme {
+  width: 300px;
+  margin-right: 150px;
+}
+
+.ModalQuest {
+  pointer-events: all;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  border: 2px solid #00ff99;
+  box-shadow:
+    0 0 20px #00ff99,
+    0 0 30px #00ff99,
+    0 0 40px #00ff99;
+  border-radius: 10px;
+  margin: 20px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+}
+
+.ModalQuest:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 30px #00ff99,
+    0 0 50px #00ff99,
+    0 0 70px #00ff99;
+}
+
+.ModalQuest h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2em;
+  color: #ff33cc;
+  text-shadow:
+    0 0 10px #ff33cc,
+    0 0 20px #ff33cc,
+    0 0 30px #ff33cc;
+  margin-bottom: 20px;
+}
+
+.ModalQuest img {
+  height: 300px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.ModalQuest input {
+  width: 80%;
+  padding: 10px;
+  border: 2px solid #00ff99;
+  border-radius: 5px;
+  background: #1f1c2c;
+  color: #00ff99;
+  font-family: 'Press Start 2P', cursive;
+  margin-bottom: 20px;
+  box-shadow:
+    0 0 10px #00ff99,
+    0 0 20px #00ff99,
+    0 0 30px #00ff99;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.ModalQuest input:focus {
+  box-shadow:
+    0 0 20px #00ff99,
+    0 0 40px #00ff99,
+    0 0 60px #00ff99;
+  outline: none;
+}
+
+.ModalQuest button {
+  padding: 10px 20px;
+  border: 2px solid #ff33cc;
+  border-radius: 5px;
+  background: #1f1c2c;
+  color: #ff33cc;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+  transition:
+    background 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+}
+
+.ModalQuest button:hover {
+  background: #ff33cc;
+  color: #1f1c2c;
+  box-shadow:
+    0 0 10px #ff33cc,
+    0 0 20px #ff33cc,
+    0 0 30px #ff33cc;
+}
+
+.question-button {
+  line-height: 29px;
+  font-family: 'Press Start 2P', cursive;
+  width: 230px;
+  height: 80px;
+  background: rgba(31, 31, 31, 0.5);
+  color: #fafafa;
+  border: none;
+  border-radius: 5px;
+  font-size: 11px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.question-button:hover {
+  background-color: rgba(18, 18, 193, 0.5);
+}
+
+.question-button:active {
+  transform: scale(0.95);
+}
+
+.question-button.disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+.okk {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5em;
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 5px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.okk.verno {
+  color: #00ff00;
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+}
+
+.okk.verno1 {
+  color: #ff0000;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+}

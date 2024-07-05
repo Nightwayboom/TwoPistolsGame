@@ -1,0 +1,5 @@
+npx sequelize-cli model:generate --name User --attributes name:string,email:string,password:string
+npx sequelize-cli model:generate --name Category --attributes title:string,img:string
+npx sequelize-cli model:generate --name Question --attributes name:string,answer:string,img:string,categoryId:integer
+npx sequelize-cli model:generate --name Game --attributes userId:integer,status:boolean,point:integer
+npx sequelize-cli model:generate --name GameLine --attributes gameId:integer,questionId:integer,status:boolean
